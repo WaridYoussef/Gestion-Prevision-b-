@@ -23,7 +23,7 @@ import com.idemia.Gestion_previsions.services.ActivityService;
 import com.idemia.Gestion_previsions.shared.dto.ActivityDto;
 
 @RestController
-@RequestMapping("/activity") // localhost:8008/users
+@RequestMapping("/activity")
 public class ActivityController {
 
 	@Autowired
