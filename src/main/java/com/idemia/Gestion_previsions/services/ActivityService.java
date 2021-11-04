@@ -14,7 +14,7 @@ public interface ActivityService {
 
 	void DeleteActivity(long id);
 
-	List<ActivityDto> getActivities();
+	List<ActivityDto> getActivities(String userId);
 
 	
 }

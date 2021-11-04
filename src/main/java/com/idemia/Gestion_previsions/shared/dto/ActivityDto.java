@@ -9,6 +9,7 @@ public class ActivityDto implements Serializable{
 	
 	private long id;
 	private String name;
+	private String managerId;
 	
 	public long getId() {
 		return id;
@@ -21,6 +22,12 @@ public class ActivityDto implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getManagerId() {
+		return managerId;
+	}
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 	
 	

@@ -8,6 +8,7 @@ public class UserResponse {
 	private String email;
 	private String firstName;
 	private Boolean admin;
+	private String managerId;
 	
 	
 	public long getId() {
@@ -33,6 +34,13 @@ public class UserResponse {
 	}
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+	
+	public String getManagerId() {
+		return managerId;
+	}
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 	public String getLastName() {
 		return lastName;

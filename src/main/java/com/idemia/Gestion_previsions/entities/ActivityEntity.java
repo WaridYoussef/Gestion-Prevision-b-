@@ -32,6 +32,11 @@ public class ActivityEntity implements Serializable{
 	@Column(length = 50)
 	private String name;
 	
+	@Column(nullable = false)
+	private String managerId;
+
+	
+
 	public long getId() {
 		return id;
 	}
@@ -48,9 +53,20 @@ public class ActivityEntity implements Serializable{
 		this.name = name;
 	}
 	
+	public String getManagerId() {
+		return managerId;
+	}
+	
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
 	
 	
-	
+
+
+
+
+
 	@OneToMany(mappedBy = "activityEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<AffectationEntity> affectations;
 

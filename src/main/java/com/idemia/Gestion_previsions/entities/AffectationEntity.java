@@ -24,9 +24,10 @@ public class AffectationEntity implements Serializable{
 	private String firstName;
 	
 	@Transient
+	private String LastName;
+	
+	@Transient
 	private String activity_name;
-	
-	
 	
 	
 	@Id
@@ -40,7 +41,8 @@ public class AffectationEntity implements Serializable{
 	private String mois;
 	@Column(nullable = false)
 	private String semaine;
-	
+	@Column
+	private String description;
 	
 	
 	@ManyToOne
@@ -74,6 +76,12 @@ public class AffectationEntity implements Serializable{
 		this.user_id = user_id;
 	}
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 	public String getMois() {
 		return mois;
@@ -93,8 +101,9 @@ public class AffectationEntity implements Serializable{
 	public String getActivity_name() {
 		return this.activityEntity.getName();
 	}
-	
-	
+	public String getLastName() {
+		return this.userEntity.getLastName();
+	}
 	
 	
 	

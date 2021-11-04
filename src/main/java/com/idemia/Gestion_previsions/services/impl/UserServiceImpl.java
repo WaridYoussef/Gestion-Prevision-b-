@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
 		userEntity.setFirstName(userDto.getFirstName());
 		userEntity.setLastName(userDto.getLastName());
 		userEntity.setEmail(userDto.getEmail());
+		userEntity.setAdmin(userDto.getAdmin());
 
 		UserEntity userUpdated = userRepository.save(userEntity);
 
@@ -113,7 +114,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserDto> getUsers() {
+	public List<UserDto> getUsers(String id) {
 
 		
 
@@ -121,7 +122,7 @@ public class UserServiceImpl implements UserService {
 		
 		List<UserEntity> userPage;
 		
-			 userPage = userRepository.findAllUsers();
+			 userPage = userRepository.findAllUsers(id);
 		
 		
 
@@ -135,6 +136,54 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return usersDto;
+	}
+
+	@Override
+	public UserDto updateUserPW(String id, UserDto userDto) {
+		UserEntity userEntity = userRepository.findByUserId(id);
+		if (userEntity == null)
+			throw new RuntimeException(id);
+		
+		// if currentPass = encryptedPass
+		boolean result = bCryptPasswordEncoder.matches(userDto.getCurrentPass(), userEntity.getEncryptedpassword());
+		
+		if(result == false)
+			throw new RuntimeException("Error password");
+		
+		userEntity.setEncryptedpassword(bCryptPasswordEncoder.encode(userDto.getNewPass()));
+		
+
+		UserEntity userUpdated = userRepository.save(userEntity);
+
+		UserDto user = new UserDto();
+		BeanUtils.copyProperties(userUpdated, user);
+
+		return user;
+		
+	}
+
+	@Override
+	public List<UserDto> getManagers() {
+		
+List<UserDto> usersDto = new ArrayList<>();
+		
+		List<UserEntity> userPage;
+		
+			 userPage = userRepository.findAllManagers();
+		
+		
+
+		List<UserEntity> users = userPage;
+		for (UserEntity userEntity : users) {
+
+			ModelMapper modemapper = new ModelMapper();
+			UserDto userDto = modemapper.map(userEntity, UserDto.class);
+
+			usersDto.add(userDto);
+		}
+
+		return usersDto;
+		
 	}
 
 }

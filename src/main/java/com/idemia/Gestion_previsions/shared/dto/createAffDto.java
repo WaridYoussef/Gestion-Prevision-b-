@@ -14,7 +14,14 @@ public class createAffDto implements Serializable{
 	private long activity_id;
 	private String mois;
 	private String semaine;
+	private String description;
 	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public long getId() {
 		return id;
 	}

@@ -34,22 +34,13 @@ public class AffectationController {
 	AffectationService affectationService;
 	
 	
-	//@GetMapping(path="/{id}", produces = {MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE})
-	//public ResponseEntity<AffectationResponse> getAffectation(@PathVariable(name = "id") long affectationId) {
-
-		//AffectationDto affectationDto = affectationService.getAffectation(affectationId);
-		//ModelMapper modelmapper = new ModelMapper();
-		//AffectationResponse affectationResponse = modelmapper.map(affectationDto, AffectationResponse.class);
-		//return new ResponseEntity<>(affectationResponse ,HttpStatus.OK); 
-	//}
-	
 	
 	@GetMapping(path="/{id}", produces = {MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<AffectationResponse>> getAllAffectations(@PathVariable(name = "id") String affectationId){
+	public ResponseEntity<List<AffectationResponse>> getAllAffectations(@PathVariable(name = "id") String userId){
 		
 		List<AffectationResponse> affectationsResponse = new ArrayList<>();
 		
-		List<AffectationDto> affectations = affectationService.getAffectations(affectationId);
+		List<AffectationDto> affectations = affectationService.getAffectations(userId);
 		
 	for(AffectationDto affectationDto : affectations) {
 			
@@ -62,20 +53,24 @@ public class AffectationController {
 		
 	}
 	
-	//@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE})
-	//public List<AffectationResponse> getAllAffectations(){
+	@RequestMapping("/dashboard/{id}")
+	@GetMapping(path="/{id}", produces = {MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<List<AffectationResponse>> getDashBoardAffectations(@PathVariable(name = "id") String userId){
 		
-		//List<AffectationResponse> affectationsResponse = new ArrayList<>();
-		//List<AffectationDto> affectations = affectationService.getAffs();
-		//for(AffectationDto affectationDto : affectations) {
+		List<AffectationResponse> affectationsResponse = new ArrayList<>();
+		
+		List<AffectationDto> affectations = affectationService.getDashBoardAffectations(userId);
+		
+	for(AffectationDto affectationDto : affectations) {
 			
-			//ModelMapper modemapper=new ModelMapper();
-			//AffectationResponse affectation = modemapper.map(affectationDto, AffectationResponse.class);
-					
-			//affectationsResponse.add(affectation);
-			//}
-		//return affectationsResponse;
-	//}
+	ModelMapper modemapper=new ModelMapper();
+	AffectationResponse affectation = modemapper.map(affectationDto, AffectationResponse.class);
+			
+	affectationsResponse.add(affectation);
+	}
+	return new ResponseEntity<>(affectationsResponse ,HttpStatus.OK);
+		
+	}
 	
 	
 	
@@ -92,7 +87,7 @@ public class AffectationController {
 		createAffResponse affectationResponse = new createAffResponse();
 		BeanUtils.copyProperties(createAffectation, affectationResponse);
 		
-		return new ResponseEntity<createAffResponse>(affectationResponse ,HttpStatus.ACCEPTED);
+		return new ResponseEntity<createAffResponse>(affectationResponse ,HttpStatus.CREATED);
 	}
 	
 	

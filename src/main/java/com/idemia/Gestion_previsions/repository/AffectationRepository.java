@@ -20,9 +20,11 @@ public interface AffectationRepository extends PagingAndSortingRepository<Affect
 	
 	@Query(value = "SELECT * FROM affectation  WHERE user_id=:user_id  ORDER BY id DESC" ,nativeQuery = true)
 	List<AffectationEntity> findAllByUser_Idd(@Param("user_id") long user_id);
+
+	@Query(value = "SELECT * FROM affectation WHERE user_id=:user_id ORDER BY id desc LIMIT 8" ,nativeQuery = true)
+	List<AffectationEntity> findDashBoardAffs(@Param("user_id") long user_id);
 	
-	@Query(value = "SELECT * FROM affectation" ,nativeQuery = true)
-	List<AffectationEntity> findAll();
+	
 
 	
 	

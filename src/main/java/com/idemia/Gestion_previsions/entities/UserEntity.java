@@ -43,12 +43,11 @@ public class UserEntity implements Serializable{
 	private String email;
 	@Column(nullable = true)
 	private Boolean admin;
+	@Column(nullable = true)
+	private String managerId;
 	@Column(nullable = false)
 	private String encryptedpassword;
-	@Column(nullable = true)
-	private String emailVerificationToken;
-	@Column(nullable = false)
-	private Boolean emailVerificationStatus = false;
+	
 	
 	
 	
@@ -96,18 +95,7 @@ public class UserEntity implements Serializable{
 	public void setEncryptedpassword(String encryptedpassword) {
 		this.encryptedpassword = encryptedpassword;
 	}
-	public String getEmailVerificationToken() {
-		return emailVerificationToken;
-	}
-	public void setEmailVerificationToken(String emailVerificationToken) {
-		this.emailVerificationToken = emailVerificationToken;
-	}
-	public Boolean getEmailVerificationStatus() {
-		return emailVerificationStatus;
-	}
-	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
-		this.emailVerificationStatus = emailVerificationStatus;
-	}
+	
 
 	public Boolean getAdmin() {
 		return admin;
@@ -116,6 +104,16 @@ public class UserEntity implements Serializable{
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
+
+	public String getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
+
+	
 	
 	
 	

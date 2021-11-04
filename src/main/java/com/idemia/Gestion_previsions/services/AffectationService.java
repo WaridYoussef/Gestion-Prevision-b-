@@ -16,8 +16,9 @@ public interface AffectationService {
 
 	void DeleteAffectation(long id);
 
-	List<AffectationDto> getAffectations(String affectationId);
+	List<AffectationDto> getAffectations(String userId);
 
-	List<AffectationDto> getAffs();
+	List<AffectationDto> getDashBoardAffectations(String userId);
+
 
 }

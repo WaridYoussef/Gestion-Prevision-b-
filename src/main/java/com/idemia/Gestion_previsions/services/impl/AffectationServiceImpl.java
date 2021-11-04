@@ -64,10 +64,19 @@ public class AffectationServiceImpl implements AffectationService{
 		AffectationEntity affectationEntity = affectationRepository.findById(id);
 		if(affectationEntity == null) throw new RuntimeException("affectation NOT FOUND !");
 		
+		List<AffectationEntity> Affectations = affectationRepository.findAllByUser_id(affectationDto.getUser_id());
+		
+		for(AffectationEntity affect : Affectations) {
+			if(affect.getId() != affectationDto.getId() && affect.getSemaine().equalsIgnoreCase(affectationDto.getSemaine()))
+				throw new RuntimeException("Affectation Déja exist !");
+		}
+		
+		
 		affectationEntity.setActivity_id(affectationDto.getActivity_id());
 		affectationEntity.setUser_id(affectationDto.getUser_id());
 		affectationEntity.setMois(affectationDto.getMois());
 		affectationEntity.setSemaine(affectationDto.getSemaine());
+		affectationEntity.setDescription(affectationDto.getDescription());
 		
 		
 		AffectationEntity upAffectation = affectationRepository.save(affectationEntity);
@@ -110,21 +119,34 @@ public class AffectationServiceImpl implements AffectationService{
 
 
 	@Override
-	public List<AffectationDto> getAffs() {
+	public List<AffectationDto> getDashBoardAffectations(String id) {
 		
-		List<AffectationEntity> affsEntity= affectationRepository.findAll();
-		List<AffectationDto> affectationsDto = new ArrayList<>();
+		List<UserEntity> users= userRepository.findAllUsers(id);
+		List<AffectationEntity> listAffs = new ArrayList<AffectationEntity>();
+		List<AffectationEntity> listSolutionAffs = new ArrayList<>();
+		List<AffectationDto> listAffectations = new ArrayList<>();
 		
-		for (AffectationEntity affectationEntity : affsEntity) {
+		for(UserEntity userE : users) {
+			listSolutionAffs = affectationRepository.findDashBoardAffs(userE.getId());
+			listAffs.addAll(listSolutionAffs);
+		}
+		
+		for (AffectationEntity affectationEntity : listAffs) {
 
 			ModelMapper modemapper = new ModelMapper();
 			AffectationDto affectationDto = modemapper.map(affectationEntity, AffectationDto.class);
 
-			affectationsDto.add(affectationDto);
+			listAffectations.add(affectationDto);
 		}
-		return  affectationsDto;
-	}
 
+		return listAffectations;
+	}
+		
+		
+	
+
+
+	
 	
 	
 	

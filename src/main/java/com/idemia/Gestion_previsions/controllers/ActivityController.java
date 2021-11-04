@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,13 +38,13 @@ public class ActivityController {
 		return new ResponseEntity<>(activityResponse ,HttpStatus.OK); 
 	}
 	
-	
-	@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<List<ActivityResponse>> getAllActivities(){
+	@RequestMapping("/activs/{id}")
+	@GetMapping(path="/{id}", produces = {MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<List<ActivityResponse>> getAllActivities(@PathVariable(name = "id") String userId){
 		
 		List<ActivityResponse> activitiesResponse = new ArrayList<>();
 		
-		List<ActivityDto> activities = activityService.getActivities();
+		List<ActivityDto> activities = activityService.getActivities(userId);
 		
 			for(ActivityDto activityDto : activities) {
 			
@@ -62,8 +63,9 @@ public class ActivityController {
 	public ResponseEntity<ActivityResponse> createActivity(@RequestBody ActivityRequest activityRequest) {
 
 		ModelMapper modelMapper = new ModelMapper();
-
-		ActivityDto activityDto = modelMapper.map(activityRequest, ActivityDto.class);
+		
+		ActivityDto activityDto = new ActivityDto();
+		BeanUtils.copyProperties(activityRequest, activityDto);
 
 		ActivityDto createActivity = activityService.createActivity(activityDto);
 
@@ -77,7 +79,10 @@ public class ActivityController {
 	public ResponseEntity<ActivityResponse> updateActivity(@PathVariable long id, @RequestBody ActivityRequest activityRequest) {
 
 		ModelMapper modelMapper = new ModelMapper();
-		ActivityDto activityDto = modelMapper.map(activityRequest, ActivityDto.class);
+		
+		ActivityDto activityDto = new ActivityDto();
+		BeanUtils.copyProperties(activityRequest, activityDto);
+
 
 		ActivityDto updateActivity = activityService.updateActivity(id, activityDto);
 

@@ -31,6 +31,9 @@ public class ActivityServiceImpl implements ActivityService {
 
 	@Override
 	public ActivityDto createActivity(ActivityDto activityDto) {
+		ActivityEntity checkActivity = activityRepository.findByName(activityDto.getName(), activityDto.getManagerId() );
+		if (checkActivity != null)
+			throw new RuntimeException("Activity Already Exist !");
 		 ModelMapper modelMapper=new ModelMapper();
 	        ActivityEntity activityEntity=modelMapper.map(activityDto, ActivityEntity.class);
 	        ActivityEntity newActivity=activityRepository.save(activityEntity);
@@ -43,7 +46,12 @@ public class ActivityServiceImpl implements ActivityService {
 		ActivityEntity activityEntity = activityRepository.findById(id);
 		if(activityEntity == null) throw new RuntimeException("activity NOT FOUND !");
 		
+		ActivityEntity checkActivity = activityRepository.findByName(activityDto.getName(), activityDto.getManagerId() );
+		if (checkActivity != null)
+			throw new RuntimeException("Activity Already Exist !");
+		
 		activityEntity.setName(activityDto.getName());
+		activityEntity.setManagerId(activityDto.getManagerId());
 		
 		ActivityEntity upActivity = activityRepository.save(activityEntity);
 		
@@ -63,11 +71,11 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public List<ActivityDto> getActivities() {
+	public List<ActivityDto> getActivities(String id) {
 		
 		List<ActivityDto> activitiesDto = new ArrayList<>();
 		
-		List<ActivityEntity> activityPage = activityRepository.findAllActivities();
+		List<ActivityEntity> activityPage = activityRepository.findAllActivities(id);
 
 		List<ActivityEntity> activities = activityPage;
 		for (ActivityEntity activityEntity : activities) {
@@ -80,6 +88,7 @@ public class ActivityServiceImpl implements ActivityService {
 
 		return activitiesDto;
 	}
+
 	
 	
 

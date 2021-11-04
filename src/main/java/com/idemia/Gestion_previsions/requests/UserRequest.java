@@ -12,6 +12,8 @@ public class UserRequest {
 	
 	private Boolean admin;
 	
+	private String managerId;
+	
 	private String password;
 	
 	
@@ -38,6 +40,13 @@ public class UserRequest {
 	}
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+	
+	public String getManagerId() {
+		return managerId;
+	}
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 	public String getPassword() {
 		return password;

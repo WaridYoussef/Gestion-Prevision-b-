@@ -17,9 +17,10 @@ public class UserDto implements Serializable{
 	private String email;
 	private String password;
 	private Boolean admin;
+	private String managerId;
 	private String encryptedpassword;
-	private String emailVerificationToken;
-	private Boolean emailVerificationStatus = false;
+	private String currentPass;
+	private String newPass;
 	
 	
 	public String getUserId() {
@@ -64,23 +65,29 @@ public class UserDto implements Serializable{
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
+	public String getManagerId() {
+		return managerId;
+	}
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
 	public String getEncryptedpassword() {
 		return encryptedpassword;
 	}
 	public void setEncryptedpassword(String encryptedpassword) {
 		this.encryptedpassword = encryptedpassword;
 	}
-	public String getEmailVerificationToken() {
-		return emailVerificationToken;
+	public String getCurrentPass() {
+		return currentPass;
 	}
-	public void setEmailVerificationToken(String emailVerificationToken) {
-		this.emailVerificationToken = emailVerificationToken;
+	public void setCurrentPass(String currentPass) {
+		this.currentPass = currentPass;
 	}
-	public Boolean getEmailVerificationStatus() {
-		return emailVerificationStatus;
+	public String getNewPass() {
+		return newPass;
 	}
-	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
-		this.emailVerificationStatus = emailVerificationStatus;
+	public void setNewPass(String newPass) {
+		this.newPass = newPass;
 	}
 	
 	
