@@ -29,7 +29,7 @@ import com.idemia.Gestion_previsions.services.UserService;
 import com.idemia.Gestion_previsions.shared.dto.UserDto;
 
 @RestController
-@RequestMapping("/user") // localhost:8008/user
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
