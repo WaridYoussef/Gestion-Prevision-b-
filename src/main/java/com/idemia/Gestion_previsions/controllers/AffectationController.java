@@ -27,7 +27,7 @@ import com.idemia.Gestion_previsions.shared.dto.createAffDto;
 
 
 @RestController
-@RequestMapping("/affectation") // localhost:8088/usersgroups
+@RequestMapping("/affectation")
 public class AffectationController {
 
 	@Autowired
